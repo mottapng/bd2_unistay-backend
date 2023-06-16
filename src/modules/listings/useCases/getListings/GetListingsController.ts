@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { GetListingsUseCase } from "./getListingsUseCase";
+import { GetListingsUseCase } from "./GetListingsUseCase";
 
 export class GetListingsController {
   async handle(req: Request, res: Response) {

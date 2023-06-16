@@ -5,6 +5,9 @@ CREATE TABLE IF NOT EXISTS bkp_listings (
     description TEXT,
     private_room BOOLEAN NOT NULL,
     price FLOAT NOT NULL,
+    qnt_bedrooms  INT NOT NULL,
+    qnt_bathrooms INT NOT NULL,
+    qnt_garage    INT NOT NULL,
     type_id BIGINT NOT NULL,
     user_id BIGINT NOT NULL,
 	street VARCHAR(100),
@@ -26,6 +29,9 @@ DECLARE
     list_description TEXT;
     list_private_room BOOLEAN;
     list_price FLOAT;
+    list_qnt_bedrooms  INT;
+    list_qnt_bathrooms INT;
+    list_qnt_garage    INT;
     list_type_id BIGINT;
     list_user_id BIGINT;
 	list_street VARCHAR(100);
@@ -35,13 +41,12 @@ DECLARE
     list_created_at TIMESTAMP;
     list_updated_at TIMESTAMP;
 BEGIN
-	SELECT * INTO list_address, list_listing, list_name, list_description, list_private_room, list_price, 
-	list_type_id, list_user_id, list_created_at, list_updated_at, list_street, list_number, list_uf, list_city
+	SELECT * INTO list_address, list_listing, list_name, list_description, list_private_room, list_price, list_qnt_bedrooms, list_qnt_bathrooms, list_qnt_garage, list_type_id, list_user_id, list_created_at, list_updated_at, list_street, list_number, list_uf, list_city
 	FROM listings_report 
 	WHERE listing_id=OLD.listing_id;
 	
 	INSERT INTO bkp_listings VALUES (list_listing, list_name, list_description, list_private_room, list_price, 
-	list_type_id, list_user_id, list_street, list_number, list_uf, list_city, list_created_at, list_updated_at);
+	list_qnt_bedrooms, list_qnt_bathrooms, list_qnt_garage, list_type_id, list_user_id, list_street, list_number, list_uf, list_city, list_created_at, list_updated_at);
 
 	DELETE FROM listings WHERE listing_id=OLD.listing_id;
 	DELETE FROM address WHERE address_id=list_address;

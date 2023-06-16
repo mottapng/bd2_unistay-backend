@@ -39,9 +39,12 @@ CREATE TABLE IF NOT EXISTS listings (
     description TEXT,
     private_room BOOLEAN NOT NULL,
     price FLOAT NOT NULL,
+    qnt_bedrooms  INT NOT NULL,
+    qnt_bathrooms INT NOT NULL,
+    qnt_garage    INT NOT NULL,
     type_id BIGINT NOT NULL,
     user_id BIGINT NOT NULL,
-	address_id BIGINT NOT NULL,
+    address_id BIGINT NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE,
     

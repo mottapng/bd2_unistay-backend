@@ -52,6 +52,9 @@ model listings {
   type_id       Int
   user_id       Int
   address_id    Int
+  qnt_bedrooms  Int
+  qnt_bathrooms Int
+  qnt_garage    Int
   created_at    DateTime      @default(now())
   updated_at    DateTime?
   users         users         @relation(fields: [user_id], references: [user_id])

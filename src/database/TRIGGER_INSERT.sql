@@ -3,8 +3,8 @@ CREATE OR REPLACE FUNCTION insert_listings_report() RETURNS TRIGGER AS $$
 BEGIN
 	INSERT INTO address (street, number, uf, city) VALUES (NEW.street, NEW.number, NEW.uf, NEW.city);
 	
-	INSERT INTO listings (name, description, private_room, price, type_id, user_id, address_id) 
-	VALUES (NEW.name, NEW.description, NEW.private_room, NEW.price, NEW.type_id, NEW.user_id, currval('address_address_id_seq'));
+	INSERT INTO listings (name, description, private_room, price, qnt_bedrooms, qnt_bathrooms, qnt_garage, type_id, user_id, address_id) 
+	VALUES (NEW.name, NEW.description, NEW.private_room, NEW.price, NEW.qnt_bedrooms, NEW.qnt_bathrooms, NEW.qnt_garage, NEW.type_id, NEW.user_id, currval('address_address_id_seq'));
 	
 	RETURN NEW;
 END; $$ LANGUAGE plpgsql SECURITY DEFINER;
