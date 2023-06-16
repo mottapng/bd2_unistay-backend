@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["views"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  user_id                Int             @id @default(autoincrement())
+  email                  String          @unique
+  password               String
+  name                   String
+  cellphone              String
+  birth_date             DateTime?
+  country                String?
+  uf                     String?
+  created_at             DateTime        @default(now())
+  updated_at             DateTime?
+  listings               listings[]
+  conversationsAsRenter  conversations[] @relation("renter")
+  conversationsAsLocator conversations[] @relation("locator")
+  messageUser            message[]       @relation("messageUser")
+}
+
+model listing_types {
+  type_id  Int        @id @default(autoincrement())
+  type     String
+  listings listings[]
+}
+
+model address {
+  address_id Int        @id @default(autoincrement())
+  street     String
+  number     Int
+  uf         String
+  city       String
+  listings   listings[]
+}
+
+model listings {
+  listing_id    Int           @id @default(autoincrement())
+  name          String
+  description   String?
+  private_room  Boolean
+  price         Float
+  type_id       Int
+  user_id       Int
+  address_id    Int
+  created_at    DateTime      @default(now())
+  updated_at    DateTime?
+  users         users         @relation(fields: [user_id], references: [user_id])
+  listing_types listing_types @relation(fields: [type_id], references: [type_id])
+  address       address       @relation(fields: [address_id], references: [address_id])
+  images        images[]
+}
+
+model images {
+  image_id   Int      @id @default(autoincrement())
+  file_name  String
+  file_key   String
+  file_url   String
+  listing_id Int
+  listings   listings @relation(fields: [listing_id], references: [listing_id])
+}
+
+model conversations {
+  conversation_id Int       @id @default(autoincrement())
+  renter_id       Int
+  locator_id      Int
+  renter          users     @relation("renter", fields: [renter_id], references: [user_id])
+  locator         users     @relation("locator", fields: [locator_id], references: [user_id])
+  messages        message[]
+}
+
+model message {
+  message_id      Int           @id @default(autoincrement())
+  message         String
+  conversation_id Int
+  user_id         Int
+  created_at      DateTime      @default(now())
+  conversation    conversations @relation(fields: [conversation_id], references: [conversation_id])
+  users           users         @relation("messageUser", fields: [user_id], references: [user_id])
+}
