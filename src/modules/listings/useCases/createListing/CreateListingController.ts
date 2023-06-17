@@ -7,7 +7,22 @@ export class CreateListingController {
     const createAddressUseCase = new CreateAddressUseCase();
     const createListingUseCase = new CreateListingUseCase();
 
-    const { name, description, private_room, price, type_id, street, number, uf, city } = req.body;
+    const {
+      name,
+      description,
+      private_room,
+      price,
+      qnt_bedrooms,
+      qnt_bathrooms,
+      qnt_garage,
+      type_id,
+      street,
+      number,
+      uf,
+      city
+    } = req.body;
+
+
     let user_id
 
     if (req.payload)
@@ -20,7 +35,7 @@ export class CreateListingController {
     const address_id = address.address_id
 
     const listing = await createListingUseCase.execute(
-      { name, description, private_room, price, type_id, user_id, address_id }
+      { name, description, private_room, price, qnt_bedrooms, qnt_bathrooms, qnt_garage, type_id, user_id, address_id }
     )
 
     return res.status(201).json({ listing, address });
