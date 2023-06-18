@@ -12,6 +12,9 @@ export class GetListingsUseCase {
 
     const listings = await prisma.listings.findMany({
       where: whereClause,
+      orderBy: {
+        listing_id: 'desc'
+      },
       include: {
         address: true,
         images: {
