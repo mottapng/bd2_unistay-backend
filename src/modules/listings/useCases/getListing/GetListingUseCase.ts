@@ -21,7 +21,7 @@ export class GetListingUseCase {
             file_url: true,
             file_name: true
           },
-          orderBy: { image_id: 'asc' }
+          orderBy: { image_id: 'desc' }
         }
       }
     })
