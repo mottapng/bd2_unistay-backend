@@ -18,7 +18,7 @@ export class GetListingsUseCase {
       include: {
         address: true,
         images: {
-          orderBy: { image_id: 'asc' }
+          orderBy: { image_id: 'desc' }
         }
       }
     })
