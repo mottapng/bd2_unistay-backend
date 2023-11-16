@@ -3,8 +3,7 @@ import { GetListingUseCase } from "./GetListingUseCase";
 
 export class GetListingController {
   async handle(req: Request, res: Response) {
-    const { listing } = req.params
-    const listing_id = Number(listing);
+    const { listing_id } = req.params
 
     const getListingUseCase = new GetListingUseCase();
     const result = await getListingUseCase.execute({

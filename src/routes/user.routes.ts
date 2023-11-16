@@ -11,6 +11,6 @@ const userRoutes = Router();
 
 userRoutes.post('/register', createUserController.handle);
 userRoutes.post('/login', loginUserController.handle);
-userRoutes.get('/:user', getUserController.handle);
+userRoutes.get('/:user_id', getUserController.handle);
 
 export { userRoutes }

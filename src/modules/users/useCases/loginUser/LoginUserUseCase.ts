@@ -25,7 +25,7 @@ export class LoginUserUseCase {
     const validPass = await bcrypt.compare(password, user.password);
 
     if (!validPass) {
-      throw new AppError("Password incorrect!", 400);
+      throw new AppError("Password incorrect!", 401);
     }
 
     const jwtPayload = {

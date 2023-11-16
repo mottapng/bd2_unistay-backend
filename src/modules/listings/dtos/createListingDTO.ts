@@ -6,7 +6,7 @@ export interface CreateListingDTO {
   qnt_bedrooms: number;
   qnt_bathrooms: number;
   qnt_garage: number;
-  type_id: number;
-  user_id: number;
-  address_id: number;
+  type_id: string;
+  user_id: string;
+  address_id: string;
 }

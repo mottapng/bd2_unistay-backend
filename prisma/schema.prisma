@@ -12,7 +12,7 @@ datasource db {
 }
 
 model users {
-  user_id                Int             @id @default(autoincrement())
+  user_id             String @id @default(uuid())
   email                  String          @unique
   password               String
   name                   String
@@ -29,13 +29,13 @@ model users {
 }
 
 model listing_types {
-  type_id  Int        @id @default(autoincrement())
+  type_id  Int   @id @default(autoincrement())
   type     String
   listings listings[]
 }
 
 model address {
-  address_id Int        @id @default(autoincrement())
+  address_id String @id @default(uuid())
   street     String
   number     Int
   uf         String
@@ -44,49 +44,50 @@ model address {
 }
 
 model listings {
-  listing_id    Int           @id @default(autoincrement())
+  listing_id    String @id @default(uuid())
   name          String
   description   String?
   private_room  Boolean
   price         Float
   type_id       Int
-  user_id       Int
-  address_id    Int
+  user_id       String
+  address_id    String
   qnt_bedrooms  Int
   qnt_bathrooms Int
   qnt_garage    Int
   created_at    DateTime      @default(now())
   updated_at    DateTime?
-  users         users         @relation(fields: [user_id], references: [user_id])
-  listing_types listing_types @relation(fields: [type_id], references: [type_id])
-  address       address       @relation(fields: [address_id], references: [address_id])
+  users         users         @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+  listing_types listing_types @relation(fields: [type_id], references: [type_id], onDelete: Cascade)
+  address       address       @relation(fields: [address_id], references: [address_id], onDelete: Cascade)
   images        images[]
 }
 
 model images {
-  image_id   Int      @id @default(autoincrement())
+  image_id   String @id @default(uuid())
   file_name  String
   file_key   String
   file_url   String
-  listing_id Int
-  listings   listings @relation(fields: [listing_id], references: [listing_id])
+  listing_id String
+  listings   listings @relation(fields: [listing_id], references: [listing_id], onDelete: Cascade)
 }
 
 model conversations {
-  conversation_id Int       @id @default(autoincrement())
-  renter_id       Int
-  locator_id      Int
-  renter          users     @relation("renter", fields: [renter_id], references: [user_id])
-  locator         users     @relation("locator", fields: [locator_id], references: [user_id])
+  conversation_id String @id @default(uuid())
+  renter_id       String
+  locator_id      String
+  updated_at      DateTime  @updatedAt
+  renter          users     @relation("renter", fields: [renter_id], references: [user_id], onDelete: Cascade)
+  locator         users     @relation("locator", fields: [locator_id], references: [user_id], onDelete: Cascade)
   messages        message[]
 }
 
 model message {
-  message_id      Int           @id @default(autoincrement())
+  message_id      String @id @default(uuid())
   message         String
-  conversation_id Int
-  user_id         Int
+  conversation_id String
+  user_id         String
   created_at      DateTime      @default(now())
-  conversation    conversations @relation(fields: [conversation_id], references: [conversation_id])
-  users           users         @relation("messageUser", fields: [user_id], references: [user_id])
+  conversation    conversations @relation(fields: [conversation_id], references: [conversation_id], onDelete: Cascade)
+  users           users         @relation("messageUser", fields: [user_id], references: [user_id], onDelete: Cascade)
 }

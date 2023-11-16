@@ -5,8 +5,7 @@ export class CreateImageController {
   async handle(req: Request, res: Response) {
     const createImageUseCase = new CreateImageUseCase();
 
-    const { listing } = req.params;
-    const listing_id = Number(listing);
+    const { listing_id } = req.params;
 
     const files = req.files;
 

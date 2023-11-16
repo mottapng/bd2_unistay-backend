@@ -3,7 +3,7 @@ import { prisma } from "../../../../prisma/client";
 import { images } from '@prisma/client';
 
 export class CreateImageUseCase {
-  async execute(data: any, listing_id: number): Promise<images[]> {
+  async execute(data: any, listing_id: string): Promise<images[]> {
     const images: images[] = [];
 
     if (!listing_id) {

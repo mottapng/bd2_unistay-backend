@@ -3,7 +3,7 @@ import { prisma } from "../../../../prisma/client";
 import { AppError } from "../../../../errors/AppError";
 
 export class GetListingUseCase {
-  async execute({ listing_id }: { listing_id: number }): Promise<listings> {
+  async execute({ listing_id }: { listing_id: string }): Promise<listings> {
 
     const listing = await prisma.listings.findUnique({
       where: {
@@ -14,6 +14,7 @@ export class GetListingUseCase {
         users: {
           select: {
             name: true,
+            user_id: true
           }
         },
         images: {

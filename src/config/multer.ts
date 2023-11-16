@@ -1,7 +1,6 @@
-import multer from 'multer';
+import multer, { Options } from 'multer';
 import crypto from 'crypto';
 import multerS3 from 'multer-s3';
-import aws from 'aws-sdk';
 import express, { Request } from 'express';
 import { S3Client } from '@aws-sdk/client-s3';
 
@@ -29,7 +28,6 @@ const storage = multerS3({
 });
 
 const fileFilter = (req: express.Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
-  // Allow only images and pdf
   const allowedMimes = [
     'image/jpeg',
     'image/pjpeg',
@@ -45,7 +43,7 @@ const fileFilter = (req: express.Request, file: Express.Multer.File, cb: multer.
   }
 };
 
-const upload = multer({
+const upload: any = multer({
   storage,
   limits: {
     fileSize: 10 * 1024 * 1024
