@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/server.ts",
     "build": "tsc",
-    "start": "node dist/src/server.js"
+    "start": "node src/server.js"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.352.0",
