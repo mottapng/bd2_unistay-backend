@@ -12,7 +12,7 @@ datasource db {
 }
 
 model users {
-  user_id             String @id @default(uuid())
+  user_id                String @id @default(uuid())
   email                  String          @unique
   password               String
   name                   String
